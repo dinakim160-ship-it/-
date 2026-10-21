@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Шеринеге чакыруу</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px 12px;
+  text-align: center;
+  font-family: Georgia, serif;
+  color: #54206f;
+  background: linear-gradient(135deg,#c9a7e6,#fffaff,#bba0dc);
+}
+
+h1 {
+  font-size: 32px;
+  font-style: italic;
+}
+
+button {
+  padding: 13px 22px;
+  margin: 10px;
+  border: 1px solid #d5b052;
+  border-radius: 30px;
+  background: #63317d;
+  color: white;
+  font-size: 17px;
+}
+
+#envelope {
+  margin: 35px auto;
+  width: 280px;
+  height: 190px;
+  position: relative;
+  background: #c9a8e4;
+  border: 3px solid #d2ac4b;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px #6d438855;
+}
+
+#flap {
+  position: absolute;
+  inset: 0;
+  background: #e9d9f5;
+  clip-path: polygon(0 0,100% 0,50% 65%);
+  transform-origin: top;
+  transition: transform 1s;
+  z-index: 2;
+}
+
+#seal {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 40px;
+  z-index: 3;
+}
+
+#letter {
+  position: absolute;
+  inset: 8px;
+  background: white;
+  padding: 15px 5px;
+  opacity: 0;
+  transition: 1s;
+}
+
+.open #flap {
+  transform: rotateX(180deg);
+}
+
+.open #seal {
+  display: none;
+}
+
+.open #letter {
+  opacity: 1;
+}
+
+.card {
+  display: none;
+  max-width: 520px;
+  margin: 25px auto;
+  padding: 22px 12px;
+  background: #fffaff;
+  border: 2px solid #d4b052;
+  border-radius: 12px;
+  animation: appear 1s;
+}
+
+.card.show {
+  display: block;
+}
+
+.poem {
+  font-size: 19px;
+  line-height: 1.9;
+  font-style: italic;
+}
+
+.gold {
+  color: #b58b30;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<p>💌 Сизге атайын чакыруу келди</p>
+<h1>Чакыруу</h1>
+<p>Конвертти басып ачыңыз</p>
+
+<div id="envelope" onclick="openLetter()">
+  <div id="letter">
+    <h2>Шеринеге чакыруу</h2>
+    <h2 class="gold">07.11.26</h2>
+    <p>Бейшенбек &amp; Майрамкул</p>
+  </div>
+  <div id="flap"></div>
+  <div id="seal">❦</div>
+</div>
+
+<div class="card" id="invitation">
+  <h1>Шеринеге чакыруу</h1>
+  <p class="gold">──── ❦ ────</p>
+
+  <p class="poem">
+    Бир тууганым, бир боорум кыйышпаган,<br>
+    Болчу дайым жанымда ырыс багым.<br>
+    Бар болуп маңдайымда өзүң турсаң,<br>
+    Бактым ошол жан биргем урматтаган.
+  </p>
+
+  <p class="poem">
+    Урматтуу туугандар! Сиздерди 7-ноябрда
+    өтө турган шеринебизге ак дасторкон
+    үстүндө кобурашып, кеп алып, сырдашып,
+    чер жазып, ойноп-күлүп, алтындай болгон
+    убактыңыздарды арнап келүүгө чакырабыз.
+    Сиздерди чыдамсыздык менен күтөбүз!
+  </p>
+
+  <p class="gold">Күнү: 7-ноябрь, 2026-жыл</p>
+  <h2>Бейшенбек &amp; Майрамкул</h2>
+  <p>Дареги: Үй ээсинин үйүндө</p>
+
+  <!-- Сүрөттөрдү кийин бул жерге кошобуз -->
+</div>
+
+<button onclick="toggleMusic()" id="musicButton">
+  ♫ Музыканы күйгүзүү
+</button>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="location.reload()">↻ Кайра баштоо</button>
+
+<script>
+function openLetter() {
+  document.getElementById("envelope").classList.add("open");
+
+  document.getElementById("invitation").classList.add("show");
+
+  setTimeout(function() {
+    document.getElementById("invitation")
+      .scrollIntoView({behavior:"smooth"});
+  }, 500);
+}
+
+async function toggleMusic() {
+  const music = document.getElementById("music");
+  const button = document.getElementById("musicButton");
+
+  if (music.paused) {
+    try {
+      await music.play();
+      button.textContent = "♫ Музыканы токтотуу";
+    } catch (error) {
+      alert("music.mp3 файлын Repository'ге кошуңуз.");
+    }
+  } else {
+    music.pause();
+    button.textContent = "♫ Музыканы күйгүзүү";
+  }
+}
+</script>
+
+</body>
+</html>
